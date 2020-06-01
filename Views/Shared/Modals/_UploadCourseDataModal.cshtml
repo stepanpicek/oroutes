@@ -1,0 +1,25 @@
+﻿@model OBPostupy.ViewModels.RaceSettingViewModel;
+
+<div class="modal fade" id="uploadCourseModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="uploadCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orisModalLabel">Nahrání tratí a kontrol</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Courses" asp-action="UploadCourses" enctype="multipart/form-data">
+                <div class="modal-body">
+                    Nahrávejte kontroly a tratě ve formátu IOF XML v.3
+                    <input type="file" class="form-control" name="file" />
+                </div>
+                <input type="hidden" name="id" value="@Model.Race.ID" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+                    <input type="submit" class="btn btn-primary" class="uploadLink" value="Uložit" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

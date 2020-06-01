@@ -1,0 +1,19 @@
+﻿@model OBPostupy.Models.Races.Race;
+@{
+    ViewData["Title"] = "Delete";
+}
+
+    <div class="page-content">
+
+        <h1>Smazat</h1>
+
+        <h3>Opravdu chcete smazat tratě a kontroly ze závodu ?</h3>
+        <h4>Všechny vazby se smažou</h4>
+        <div>
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="ID" />
+                <input type="submit" value="Smazat" class="btn btn-danger" /> |
+                <a asp-controller="Races" asp-action="Setting" asp-route-id="@Model.ID">Zpět na nastavení</a>
+            </form>
+        </div>
+    </div>

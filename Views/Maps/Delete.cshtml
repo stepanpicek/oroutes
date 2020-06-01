@@ -1,0 +1,29 @@
+﻿@model OBPostupy.Models.Maps.Map
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+    <div class="page-content">
+        <h1>Smazat mapu</h1>
+
+        <h3>Opravdu chcete smazat tuto mapu?</h3>
+        <div>
+            <h4>Mapa</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="ID" />
+                <input type="submit" value="Smazat" class="btn btn-danger" />
+                <a asp-controller="Races" asp-action="Setting" asp-route-id="@Model.ID">Zpět na nastavení</a>
+            </form>
+        </div>
+    </div>

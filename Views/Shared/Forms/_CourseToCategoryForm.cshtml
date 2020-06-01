@@ -1,0 +1,21 @@
+﻿@model OBPostupy.ViewModels.CourseCategoryViewModel;
+@{
+    ViewData["Title"] = "_CourseToCategoryForm";
+}
+
+    <form asp-action="ChangeCourse">
+        <input type="hidden" asp-for="CategoryID" />
+        <div class="modal-body">
+            <div class="form-group row">
+                <label asp-for="CourseID" class="col-sm-2 col-form-label">@Model.CategoryName</label>
+                <div class="col-sm-10">
+                    <select asp-for="CourseID" asp-items="Model.Courses" class="custom-select"></select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <input type="submit" class="btn btn-primary" value="Uložit" />
+        </div>
+    </form>
+

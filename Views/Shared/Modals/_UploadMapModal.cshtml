@@ -1,0 +1,25 @@
+﻿@model OBPostupy.ViewModels.RaceSettingViewModel;
+
+<div class="modal fade" id="uploadMapModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="uploadMapModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orisModalLabel">Nahrání mapy</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Maps" asp-action="UploadMap" enctype="multipart/form-data">
+                <div class="modal-body">
+                    Nahrávejte mapu ve formátu KMZ
+                    <input type="file" class="form-control" name="file" accept=".kmz" />
+                </div>
+                <input type="hidden" name="id" value="@Model.Race.ID" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+                    <input type="submit" class="btn btn-primary" class="uploadLink" value="Uložit" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

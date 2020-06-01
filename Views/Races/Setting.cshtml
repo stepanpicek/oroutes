@@ -1,0 +1,120 @@
+﻿@model OBPostupy.ViewModels.RaceSettingViewModel
+
+@{
+    ViewData["Title"] = "Setting";
+}
+    <div class="page-content">
+
+
+        <h1>Nastavení závodu</h1>
+
+        <hr />
+        <form asp-action="Setting">
+            <div class="form-row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Race.ID" />
+                <div class="form-group col-md-6">
+                    <label asp-for="Race.Name" class="control-label"></label>
+                    <input asp-for="Race.Name" class="form-control" />
+                    <span asp-validation-for="Race.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Race.StartTime" class="control-label"></label>
+                    <input asp-for="Race.StartTime" class="form-control" />
+                    <span asp-validation-for="Race.StartTime" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Uložit" class="btn btn-primary" />
+                <a asp-controller="Races" asp-action="Details" asp-route-id="@Model.Race.ID" class="btn btn-success">Zobrazit závod</a>
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-dark text-light">
+                        Výsledky
+                    </div>
+                    <div class="card-body">
+                        @if (!Model.IsResultsUploaded)
+                        {
+                            <p class="card-text">Výsledky nejsou nahrány</p>
+                            <button href="#" class="btn btn-primary" data-toggle="modal" data-target="#orisModal">Stáhnout z Orisu</button>
+                            <!--<a href="#" class="btn btn-success">Nahrát soubor</a>-->
+                        }
+                        else
+                        {
+                            <p class="card-text">Výsledky jsou nahrány</p>
+                            <a asp-controller="Results" asp-action="Detail" asp-route-id="@Model.Race.ID" class="btn btn-success">Zobrazit</a>
+                            <a asp-controller="Results" asp-action="Delete" asp-route-id="@Model.Race.ID" class="btn btn-danger">Smazat</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-dark text-light">
+                        Mapa závodu
+                    </div>
+                    <div class="card-body">
+                        @if (!Model.IsMapUploaded)
+                        {
+                            <p class="card-text">Mapa není nahrána</p>
+                            <button href="#" class="btn btn-success" data-toggle="modal" data-target="#uploadMapModal">Nahrát</button>
+                        }
+                        else
+                        {
+                            <p class="card-text">Mapa k závodu nahrána</p>
+                            <a asp-controller="Maps" asp-action="Show" asp-route-id="@Model.Race.ID" class="btn btn-success" target="_blank">Zobrazit</a>
+                            <!--<a href="#" class="btn btn-primary">Kalibrovat k mapové vrstvě</a>-->
+                            <a asp-controller="Maps" asp-action="Delete" asp-route-id="@Model.Race.ID" class="btn btn-danger">Smazat</a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-dark text-light">
+                        Tratě
+                    </div>
+                    <div class="card-body">
+                        @if (!Model.IsCoursesUploaded)
+                        {
+                            <p class="card-text">Tratě nejsou nahrány</p>
+                            <button href="#" class="btn btn-success" data-toggle="modal" data-target="#uploadCourseModal">Nahrát</button>
+
+                        }
+                        else
+                        {
+                            <p class="card-text">Tratě nahrány</p>
+                            <a asp-controller="Courses" asp-action="CourseToCategory" asp-route-id="@Model.Race.ID" class="btn btn-primary">Přiřadit ke kategoriím</a>
+                            <!--<a href="#" class="btn btn-success">Zobrazit</a>-->
+                            <a asp-controller="Courses" asp-action="Delete" asp-route-id="@Model.Race.ID" class="btn btn-danger">Smazat</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <a asp-controller="Home" asp-action="Index">Zpět na hlavní stránku</a>
+        </div>
+    </div>
+@if (!Model.IsResultsUploaded)
+{
+    @await Html.PartialAsync("~/Views/Shared/Modals/_OrisModal.cshtml", Model)
+}
+@if (!Model.IsMapUploaded)
+{
+    @await Html.PartialAsync("~/Views/Shared/Modals/_UploadMapModal.cshtml", Model)
+}
+@if (!Model.IsCoursesUploaded)
+{
+    @await Html.PartialAsync("~/Views/Shared/Modals/_UploadCourseDataModal.cshtml", Model)
+}
+
+@section Scripts{
+   
+}

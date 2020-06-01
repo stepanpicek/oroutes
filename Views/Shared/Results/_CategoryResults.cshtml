@@ -1,0 +1,37 @@
+﻿@model OBPostupy.ViewModels.CategoryResultsViewModel;
+    <div class="table-responsive">
+        <table id="categoryResultsTable" class="table table-sm table-borderless" data-id="@Model.Category.CourseID">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Jméno</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach (var result in Model.SortedResults)
+                {
+                    <tr>
+                        <th>@i.</th>
+                        <td><a href="#" class="personResultsLink" data-id="@result.Person.ID">@result.Person.LastName @result.Person.FirstName</a></td>
+                        <td>
+                            @if (result.Path == null)
+                            {
+                                <a class="text-success p-1 uploadPathFormLink" data-id="@result.PersonID" data-name="@result.Person.LastName @result.Person.FirstName" data-category="@Model.Category.Name" data-toggle="tooltip" data-placement="top" title="Nahrát GPX trasu"><i class="fas fa-plus"></i></a>
+                            }
+                            else
+                            {
+                                <a class="text-success p-1 showPathLink" data-id="@result.PathID" data-action="show"><i class="far fa-eye"></i></a>
+                                <a class="text-primary p-1 editPathLink" data-id="@result.PathID" ><i class="fas fa-pen"></i></a>
+                                <a class="text-danger p-1" asp-controller="Paths" asp-action="Delete" asp-route-id="@result.PathID"><i class="fas fa-trash-alt"></i></a>
+                            }
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>

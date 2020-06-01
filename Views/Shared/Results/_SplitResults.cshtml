@@ -1,0 +1,76 @@
+﻿@model OBPostupy.ViewModels.SplitResultsViewModel;
+
+    <div id="splitResultsModalBody" data-split="@Model.Split.ID">
+
+        @if (Model.isForComparison)
+        {
+
+            <h3>Vyberte maximálně 2 závodníky pro porovnání</h3>
+            <p>Pokud se zde nenachází nějaký závodník, znamená to, že nemá nahranou trať.</p>
+        }
+        else
+        {
+
+            <h3>Postup mezi kontrolou @Model.Split.FirstControl.Code a @Model.Split.SecondControl.Code</h3>
+
+        }
+
+        <div class="split-result-section table-responsive mx-2">
+            <table class="table table-sm table-borderless">
+                @{ int i = 1;}
+                @foreach (var splitTime in Model.SplitTimes)
+                {
+                    if (splitTime.Result == null || splitTime.Result.PersonResult == null || splitTime.Result.PersonResult == null) continue;
+
+                    @if (Model.isForComparison)
+                    {
+                        @if (@splitTime.Result.PersonResult.PathID == null) continue;
+                        @if (@splitTime.Result.PersonResultID == Model.PersonResult) continue;
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <input class="form-check-input comparison-checkbox" type="checkbox" value="" id="@splitTime.Result.PersonResultID" data-id="@splitTime.Result.PersonResultID">
+                                </div>
+                            </th>
+                            <td><label for="@splitTime.Result.PersonResultID">@splitTime.Result.PersonResult.Person.LastName @splitTime.Result.PersonResult.Person.FirstName</label></td>
+                            <td>@splitTime.Result.PersonResult.Category.Name</td>
+                            @{TimeSpan ts = new TimeSpan(0, 0, splitTime.TimeSpan);}
+                            @if (ts.Hours == 0)
+                            {
+                                <td>@ts.ToString(@"mm\:ss")</td>
+                            }
+                            else
+                            {
+                                <td>@ts.ToString(@"%h\:mm\:ss")</td>
+                            }
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr data-id="@splitTime.Result.PersonResultID">
+                            <th>@i.</th>
+                            <td>@splitTime.Result.PersonResult.Person.LastName @splitTime.Result.PersonResult.Person.FirstName</td>
+                            <td>@splitTime.Result.PersonResult.Category.Name</td>
+                            @{TimeSpan ts = new TimeSpan(0, 0, splitTime.TimeSpan);}
+                            @if (ts.Hours == 0)
+                            {
+                                <td>@ts.ToString(@"mm\:ss")</td>
+                            }
+                            else
+                            {
+                                <td>@ts.ToString(@"%h\:mm\:ss")</td>
+                            }
+                        </tr>
+                    }
+
+
+                    i++;
+                }
+            </table>
+        </div>
+
+        @if (Model.isForComparison)
+        {
+            <button type="button" class="btn btn-success float-right" id="comparisonLink" disabled>Porovnat</button>
+        }
+    </div>

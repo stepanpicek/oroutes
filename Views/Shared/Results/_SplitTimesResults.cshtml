@@ -1,0 +1,80 @@
+﻿@model OBPostupy.ViewModels.PersonResultsDetailViewModel;
+
+<table class="table table-borderless table-sm ">
+    <tbody>
+
+        @for (int i = 0; i < Model.splitTimes.Count; i++)
+        {
+            var p = i + 1;
+            <tr>
+                <th scope="row"> @p (@Model.splitTimes[i].Code)</th>
+                @{
+                    TimeSpan diff;
+                    if (i == 0)
+                    {
+                        diff = Model.splitTimes[i].Time - Model.Result.StartTime;
+                    }
+                    else
+                    {
+                        diff = Model.splitTimes[i].Time - Model.splitTimes[i - 1].Time;
+                    }
+                    TimeSpan completeDiff = Model.splitTimes[i].Time - Model.Result.StartTime;
+                }
+                @if (diff.Hours == 0)
+                {
+                    <td>@diff.ToString(@"mm\:ss")</td>
+                }
+                else
+                {
+                    <td>@diff.ToString(@"%h\:mm\:ss")</td>
+                }
+
+                @{
+
+                }
+                @if (completeDiff.Hours == 0)
+                {
+                    <td>@completeDiff.ToString(@"mm\:ss")</td>
+                }
+                else
+                {
+                    <td>@completeDiff.ToString(@"%h\:mm\:ss")</td>
+                }
+
+
+                <td>
+                    <a class="text-warning p-1 showSplitResultLink" data-id="@Model.splitTimes[i].ID"><i class="fas fa-trophy"></i></a>
+                    @if (Model.PersonResult.PathID != null)
+                    {
+                        <a class="text-success p-1 showSplitAnalysisLink" data-id="@Model.splitTimes[i].ID" data-result="@Model.PersonResult.ID"><i class="far fa-eye"></i></a>
+                        <a class="text-danger p-1 comparisonSplitResultLink" data-id="@Model.splitTimes[i].ID"><i class="fas fa-random"></i></a>
+                    }
+                </td>
+            </tr>
+        }
+        <tr>
+            @{
+                TimeSpan diffFinish = Model.Result.FinishTime - Model.splitTimes.Last().Time;
+                TimeSpan completeTime = Model.Result.FinishTime - Model.Result.StartTime;
+            }
+            <th scope="row">Cíl</th>
+            @if (diffFinish.Hours == 0)
+            {
+                <td>@diffFinish.ToString(@"mm\:ss")</td>
+            }
+            else
+            {
+                <td>@diffFinish.ToString(@"%h\:mm\:ss")</td>
+            }
+
+            @if (completeTime.Hours == 0)
+            {
+                <td>@completeTime.ToString(@"mm\:ss")</td>
+            }
+            else
+            {
+                <td>@completeTime.ToString(@"%h\:mm\:ss")</td>
+            }
+        </tr>
+    </tbody>
+</table>

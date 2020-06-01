@@ -1,0 +1,42 @@
+﻿
+@{
+    string title = "";
+    if (ViewData["Title"] != null)
+    {
+        title = ViewData["Title"] + " - ";
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@title OBPostupy</title>
+    <link rel="stylesheet" href="~/css/style.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand mb-0 h1" asp-controller="Home" asp-action="Index">OB Postupy</a>
+                 
+
+        </nav>
+    </header>
+    <div class="loader">
+        <div class="loader-content">
+            <div class="spinner-border text-light" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        @await Html.PartialAsync("_FlashMessage")
+        @RenderBody()
+    </div>
+
+    <script>var exports = {};</script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

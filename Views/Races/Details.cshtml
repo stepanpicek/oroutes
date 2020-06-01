@@ -1,0 +1,34 @@
+﻿@model OBPostupy.ViewModels.RaceDetailViewModel
+@inject IJsonHelper Json;
+@{
+    ViewData["Title"] = Model.Race.Name;
+}
+
+<div id="raceDetailContainer">
+    <div class="map-panel">
+        <div id="map"></div>
+    </div>
+
+    <div class="info-panel pb-2">
+        <a id="resizeBar"></a>
+        <div class="info-panel-container">
+
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Shared/Modals/_UploadPathModal.cshtml", Model)
+@await Html.PartialAsync("~/Views/Shared/Modals/_DefaultModal.cshtml")
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            
+        });
+    </script>
+}
+
+
+
