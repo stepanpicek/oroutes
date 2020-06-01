@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OBPostupy.Api
 {
+    /// <summary>
+    /// Api controller for obtaining data from the Oris system
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class OrisController : ControllerBase
